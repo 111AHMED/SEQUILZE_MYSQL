@@ -1,6 +1,11 @@
+let { NODE_ENV } = require("./const");
+
 const express = require("express");
 var app = express();
+// //fs create folder log if not existe
+// const fs = require("fs");
 const { sequelize, User } = require("./models");
+
 //cors to allow pass data
 const cors = require("cors");
 app.use(
@@ -15,6 +20,16 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+// Morgan dev dep for
+if (NODE_ENV !== "production") {
+  const morgan = require("morgan");
+  app.use(morgan("tiny"));
+}
+// Winston logger in production loger info file
+if (NODE_ENV !== "development") {
+  const logger = require("./config/winston");
+  app.use(logger.infoLogger);
+}
 //all routes here
 app.use("/api/users", require("./routes/usersRoutes"));
 // testing route
@@ -33,4 +48,9 @@ app.use((req, res) => {
     message: "404 PAGE NOT FOUND",
   });
 });
+// Winston logger in production loger info file
+if (NODE_ENV !== "development") {
+  const logger = require("./config/winston");
+  app.use(logger.errorLogger);
+}
 module.exports = app;
