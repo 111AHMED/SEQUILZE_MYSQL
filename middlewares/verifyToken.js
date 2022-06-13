@@ -16,19 +16,19 @@ const verifyToken = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
-      status = 400;
+      status = 401;
       return res
         .status(status)
-        .json({ status, success, message: "No token provided" });
+        .json({ status, success, message: "Unauthorizeds" });
     }
 
     // console.log("tokennnnn", req.headers.authorization);
     const token = authHeader.split(" ")[1];
     if (!token) {
-      status = 400;
+      status = 401;
       return res
         .status(status)
-        .json({ status, success, message: "No token provided" });
+        .json({ status, success, message: "Unauthorizedd" });
     }
 
     const decoded = jwt.verify(token, PRIVATE_KEY);
@@ -36,21 +36,19 @@ const verifyToken = async (req, res, next) => {
     if (!decoded) {
       return res
         .status(status)
-        .json({ status, success, error: "Invalid token provided" });
+        .json({ status, success, error: "Unauthorizede" });
     }
     const rows = await User.findOne({
-      where: { id: decoded },
-      // attributes: { exclude: ["password"] },
+      where: { id: decoded.id },
+      attributes: { exclude: ["password"] },
     });
-    console.log(rows);
-    // console.log("rows", rows);
+    console.log(decoded);
     if (!rows) {
-      return res
-        .status(400)
-        .json({ status, success, error: "Invalid token provided" });
+      return res.status(401).json({ status, success, error: "UnauthorizedS" });
     }
     // inject current to user to route principal
     req.currentMarket = rows;
+    // console.log(" req.currentMarket", req.currentMarket);
 
     next();
   } catch (error) {

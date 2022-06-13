@@ -10,4 +10,11 @@ const signupSchema = (body) => {
   });
   return schema.validate(body);
 };
-module.exports = { signupSchema };
+const signinSchema = (body) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required().trim(),
+    password: Joi.string().min(4).required().trim(),
+  });
+  return schema.validate(body);
+};
+module.exports = { signupSchema, signinSchema };

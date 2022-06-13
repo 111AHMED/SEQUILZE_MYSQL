@@ -3,22 +3,24 @@ const router = express.Router();
 const { sequelize, User } = require("../models");
 // helpers
 const hash = require("../helpers/hashPassword");
+const checkPassword = require("../helpers/checkPassword");
+
 const token = require("../helpers/getToken");
 //Joi Backend validate
-const { signupSchema } = require("../helpers/validateUser");
+const { signupSchema, signinSchema } = require("../helpers/validateUser");
 
 const findAllUsers = async (req, res) => {
-  console.log(req.currentMarket);
+  // console.log(req.currentMarket);
   let success = true;
   let status = 200;
   try {
     const datas = await User.findAll({ attributes: { exclude: ["password"] } });
-    console.log(datas);
+    console.log("sqdqsdqs", datas);
     return res.json({
       status,
       success,
       message: "All users ",
-      current: req.currentMarket,
+      currentUser: req.currentMarket,
       data: datas,
     });
   } catch (error) {
@@ -66,7 +68,7 @@ const signup = async (req, res) => {
 
     // console.log(User.id);
     let data = createUser;
-
+    console.log(data);
     let tokens = token(data.id);
 
     res.status(status).json({
@@ -80,4 +82,44 @@ const signup = async (req, res) => {
     return res.status(status).json({ status, success, error: error.message });
   }
 };
-module.exports = { findAllUsers, signup };
+const signin = async (req, res) => {
+  console.log("signin");
+  let success = true;
+  let status = 200;
+  // console.log(req.body);
+  //Validate req data with joi
+  const { error } = signinSchema(req.body);
+
+  if (error) {
+    const errorMessage = error.details[0].message;
+
+    return res.status(400).json({ status: 400, success, error: errorMessage });
+  }
+  try {
+    const userInfo = req.body;
+    const { email, password } = userInfo;
+
+    const user = await User.findOne({ where: { email: email } });
+    console.log(user);
+    if (user) {
+      const password_valid = await checkPassword(password, user.password);
+      if (password_valid) {
+        let tokens = token(user.id);
+        res.status(status).json({
+          status,
+          success,
+          message: "Login successfully",
+          data: user,
+          tokens,
+        });
+      } else {
+        res.status(400).json({ error: "Password Incorrect" });
+      }
+    } else {
+      res.status(404).json({ error: "User does not exist" });
+    }
+  } catch (error) {
+    return res.status(status).json({ status, success, error: error.message });
+  }
+};
+module.exports = { findAllUsers, signup, signin };

@@ -13,11 +13,11 @@ app.listen(PORT, async (err) => {
     // await sequelize.sync({ alter: true });
     //    authenticate used to just connect to db
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log(chalk.blue("Connection has been established successfully."));
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error(chalk.red("Unable to connect to the database:", error));
   }
   err
     ? console.log(err)
-    : console.log(chalk.blue(`app listening on port ${chalk.blue(PORT)}!`));
+    : console.log(chalk.magenta(`app listening on port ${chalk.cyan(PORT)}!`));
 });
