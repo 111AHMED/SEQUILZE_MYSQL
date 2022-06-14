@@ -10,9 +10,9 @@ PORT = PORT || 5000;
 app.listen(PORT, async (err) => {
   try {
     // sync will be connect with permesion update create row table
-    // await sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: true });
     //    authenticate used to just connect to db
-    await sequelize.authenticate();
+   // await sequelize.authenticate();
     console.log(chalk.blue("Connection has been established successfully."));
   } catch (error) {
     console.error(chalk.red("Unable to connect to the database:", error));
