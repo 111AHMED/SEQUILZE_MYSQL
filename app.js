@@ -1,20 +1,19 @@
 let { NODE_ENV } = require("./const");
-
 const express = require("express");
 var app = express();
 // //fs create folder log if not existe
 // const fs = require("fs");
-const { sequelize, User } = require("./models");
+const { User } = require("./models");
+const b = "bjh";
 
 //cors to allow pass data
 const cors = require("cors");
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: "GET,POST,PUT,DELETE,PATCH",
-    credentials: true,
-  })
-);
+var corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,POST,PUT,DELETE,PATCH",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
 
