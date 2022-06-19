@@ -19,9 +19,10 @@ app.listen(PORT, async (err) => {
     // });
     // user.save();
     // console.log(user);
-
+    //test push
+    await sequelize.sync({ alter: true });
     //    authenticate used to just connect to db
-    await sequelize.authenticate();
+    // await sequelize.authenticate();
     console.log(chalk.blue("Connection has been established successfully."));
   } catch (error) {
     console.error(chalk.red("Unable to connect to the database:", error));
