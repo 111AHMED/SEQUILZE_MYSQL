@@ -6,8 +6,8 @@ const { findAllUsers, signup, signin } = require("../controllers/usersContro");
 //Middlewres
 const verifyToken = require("../middlewares/verifyToken");
 const isAdmin = require("../middlewares/isAdmin");
-//Routes
-router.get("/all", verifyToken, isAdmin, findAllUsers);
+//Routes verifyToken, isAdmin,
+router.get("/all", findAllUsers);
 router.post("/signup", signup);
 router.post("/signin", signin);
 

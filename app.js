@@ -1,9 +1,11 @@
+require("express-async-errors");
 let { NODE_ENV } = require("./const");
 const express = require("express");
+
 var app = express();
 // //fs create folder log if not existe
 // const fs = require("fs");
-const { User } = require("./models");
+
 const b = "bjh";
 
 //cors to allow pass data
@@ -33,9 +35,7 @@ if (NODE_ENV !== "development") {
 app.use("/api/users", require("./routes/usersRoutes"));
 // testing route
 app.get("/", async (req, res) => {
-  const datas = await User.findAll();
-  console.log(datas);
-  return res.json({ data: datas, message: "Welcome ." });
+  return res.json({ message: "Welcome ." });
 });
 //Router not define
 app.use((req, res) => {

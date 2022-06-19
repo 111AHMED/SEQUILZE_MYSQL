@@ -1,4 +1,6 @@
+require("express-async-errors");
 const express = require("express");
+
 const router = express.Router();
 const { sequelize, User } = require("../models");
 // helpers
@@ -10,12 +12,13 @@ const token = require("../helpers/getToken");
 const { signupSchema, signinSchema } = require("../helpers/validateUser");
 
 const findAllUsers = async (req, res) => {
-  // console.log(req.currentMarket);
+  console.log("req.currentMarket");
   let success = true;
   let status = 200;
   try {
     const datas = await User.findAll({ attributes: { exclude: ["password"] } });
-    console.log("sqdqsdqs", datas);
+
+    console.log("sqdqsdqs", datas[0].toJSON());
     return res.json({
       status,
       success,

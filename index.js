@@ -5,12 +5,21 @@ const chalk = require("chalk");
 //import app module from app js
 const app = require("./app");
 //import sequelize
-const { sequelize } = require("./models");
+const { sequelize, User } = require("./models");
 PORT = PORT || 5000;
 app.listen(PORT, async (err) => {
   try {
     // sync will be connect with permesion update create row table
     // await sequelize.sync({ alter: true });
+    // const user = await User.build({
+    //   firstName: "alis",
+    //   lastName: "alis",
+    //   email: "ali@gmail.com",
+    //   password: "abs",
+    // });
+    // user.save();
+    // console.log(user);
+
     //    authenticate used to just connect to db
     await sequelize.authenticate();
     console.log(chalk.blue("Connection has been established successfully."));
