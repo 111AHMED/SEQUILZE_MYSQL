@@ -18,7 +18,7 @@ const findAllUsers = async (req, res) => {
   try {
     const datas = await User.findAll({ attributes: { exclude: ["password"] } });
     //test
-    console.log("sqdqsdqs", datas[0].toJSON());
+    //console.log("sqdqsdqs", datas[0].toJSON());
     return res.json({
       status,
       success,

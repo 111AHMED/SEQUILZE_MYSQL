@@ -24,6 +24,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.20.1",
+    "sequelize-auto-migrations-v2": "^1.2.1",
     "sequelize-cli": "^6.4.1",
     "winston": "^3.7.2"
   },
@@ -32,7 +33,8 @@
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "nodemon": "^2.0.16",
-    "prettier": "2.7.0"
+    "prettier": "2.7.0",
+    "sequelize-mig": "^3.1.3"
   },
   "eslint": "eslint --ignore-path .gitignore ."
 }

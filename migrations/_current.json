@@ -1,0 +1,111 @@
+{
+    "tables": {
+        "Roles": {
+            "tableName": "Roles",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "uuid": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "field": "uuid",
+                    "seqType": "Sequelize.UUID"
+                },
+                "libelle": {
+                    "allowNull": false,
+                    "field": "libelle",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Users": {
+            "tableName": "Users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "uuid": {
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.UUIDV4"
+                    },
+                    "field": "uuid",
+                    "seqType": "Sequelize.UUID"
+                },
+                "firstName": {
+                    "allowNull": false,
+                    "field": "firstName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "id_role": {
+                    "allowNull": false,
+                    "field": "id_role",
+                    "references": {
+                        "model": "Roles",
+                        "key": "id"
+                    },
+                    "onDelete": "cascade",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "lastName": {
+                    "allowNull": false,
+                    "field": "lastName",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "allowNull": false,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "allowNull": false,
+                    "field": "password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "retapepassword": {
+                    "allowNull": false,
+                    "field": "retapepassword",
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "path": "C:\\Users\\fribourg\\Desktop\\medicacom\\SeqMysql\\server\\migrations\\_current.json",
+    "backupPath": "C:\\Users\\fribourg\\Desktop\\medicacom\\SeqMysql\\server\\migrations\\_current_bak.json",
+    "exists": false,
+    "revision": 1
+}
